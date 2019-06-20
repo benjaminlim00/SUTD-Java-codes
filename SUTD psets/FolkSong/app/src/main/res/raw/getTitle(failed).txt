@@ -1,0 +1,24 @@
+public String getTitle(String country) {
+    Cursor cursor = null;
+    SQLiteDatabase db = this.getReadableDatabase();
+    String titlehere = "";
+
+    //long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
+    //Log.d(TAG, "testcount: " + count);
+
+
+    try {
+        cursor = db.rawQuery("SELECT " + FolksongsDatabase.FolksongsTable.COL_TITLE + " FROM " + FolksongsDatabase.FolksongsTable.TABLE_NAME + " WHERE " + FolksongsDatabase.FolksongsTable.COL_COUNTRY + "=?", new String[]{country + ""});
+        titlehere = cursor.getString(cursor.getColumnIndex(FolksongsDatabase.FolksongsTable.COL_TITLE));
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        cursor.close();
+        Log.d(TAG, "titlehere: " + titlehere);
+        return titlehere;
+    }
+
+
+}
+
